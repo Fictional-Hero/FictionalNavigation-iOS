@@ -21,7 +21,7 @@ public class NavigationManager: ObservableObject, Identifiable {
         }
     }
     
-    public func presentSheet(id: String, view: AnyView) throws {
+    public func presentSheet(id: String, view: AnyView) {
         if paths.count > 0 {
             self.paths.append(NavigationManager())
             paths[paths.count - 2].sheetID = id
@@ -35,7 +35,7 @@ public class NavigationManager: ObservableObject, Identifiable {
         }
     }
     
-    public func presentFullScreenCover(id: String, view: AnyView) throws {
+    public func presentFullScreenCover(id: String, view: AnyView) {
         if paths.count > 0 {
             self.paths.append(NavigationManager())
             paths[paths.count - 2].fullScreenCoverID = id
