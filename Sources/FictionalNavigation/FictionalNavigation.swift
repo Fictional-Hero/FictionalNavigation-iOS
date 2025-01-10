@@ -14,10 +14,10 @@ public struct FictionalNavigator<Content: View>: View, Identifiable {
         NavigationStack(path: $navigationManager.navigator) {
             rootView()
             .navigationDestination(for: Page.self) { $0.view }
-            .sheet(isPresented: $navigationManager.presentSheet, onDismiss: {}, content: {
+            .sheet(isPresented: $navigationManager.presentSheet, onDismiss: { navigationManager.dismiss(id: navigationManager.sheetID) }, content: {
                 navigationManager.sheet
             })
-            .fullScreenCover(isPresented: $navigationManager.presentFullSheet, onDismiss: {}, content: {
+            .fullScreenCover(isPresented: $navigationManager.presentFullSheet, onDismiss: { navigationManager.dismiss(id: navigationManager.fullScreenCoverID) }, content: {
                 navigationManager.fullSheet
             })
         }
