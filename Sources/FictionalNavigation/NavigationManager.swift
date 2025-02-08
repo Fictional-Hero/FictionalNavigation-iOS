@@ -4,24 +4,24 @@ import Combine
 public class NavigationManager: ObservableObject, Identifiable {
     @Published private var paths = [NavigationManager]()
     @Published internal var navigator = [Page]()
-    internal var sheetID: String = ""
     @Published internal var presentSheet = false
     @Published internal var sheet: AnyView?
-    internal var fullScreenCoverID: String = ""
     @Published internal var presentFullSheet = false
     @Published internal var fullSheet: AnyView?
+    internal var sheetID: String = ""
+    internal var fullScreenCoverID: String = ""
     
     public init() {}
     
-    public func push(id: String, view: AnyView) {
+    public func push(id: String, view: some View) {
         if paths.count > 0 {
-            paths.last?.navigator.append(Page(id: id, view: view))
+            paths.last?.navigator.append(Page(id: id, view: AnyView(view)))
         } else {
-            self.navigator.append(Page(id: id, view: view))
+            self.navigator.append(Page(id: id, view: AnyView(view)))
         }
     }
     
-    public func presentSheet(id: String, view: AnyView) {
+    public func presentSheet(id: String, view: some View) {
         if paths.count > 0 {
             self.paths.append(NavigationManager())
             paths[paths.count - 2].sheetID = id
@@ -35,7 +35,7 @@ public class NavigationManager: ObservableObject, Identifiable {
         }
     }
     
-    public func presentFullScreenCover(id: String, view: AnyView) {
+    public func presentFullScreenCover(id: String, view: some View) {
         if paths.count > 0 {
             self.paths.append(NavigationManager())
             paths[paths.count - 2].fullScreenCoverID = id
